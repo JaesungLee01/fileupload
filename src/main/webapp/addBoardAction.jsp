@@ -61,7 +61,7 @@
    */
    
       // db연결
-         String driver = "org.mariadb.jdbc.Driver";
+      String driver = "org.mariadb.jdbc.Driver";
       String dburl = "jdbc:mariadb://127.0.0.1:3306/fileupload";
       String dbuser = "root";
       String dbpw = "java1234";

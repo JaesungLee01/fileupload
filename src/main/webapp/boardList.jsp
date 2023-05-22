@@ -20,17 +20,21 @@
    Connection conn = null;
    conn = DriverManager.getConnection(dburl, dbuser, dbpw);
    
-   String sql = "SELECT b.board_title boardTitle, f.origin_filename originFilename, f.save_filename saveFilename, path FROM board b INNER JOIN board_file f ON b.board_no = f.board_no ORDER BY b.createdate DESC";
+   String sql = "SELECT b.board_no boardNo, b.board_title boardTitle, f.board_file_no boardFileNo, f.origin_filename originFilename, f.save_filename saveFilename, path FROM board b INNER JOIN board_file f ON b.board_no = f.board_no ORDER BY b.createdate DESC";
 
    PreparedStatement stmt = conn.prepareStatement(sql);
    ResultSet rs = stmt.executeQuery();
    ArrayList<HashMap<String, Object>> list = new ArrayList<>();
    while(rs.next()) {
       HashMap<String, Object> m = new HashMap<>();
+      
+         m.put("boardNo",rs.getString("boardNo"));
          m.put("boardTitle",rs.getString("boardTitle"));
+         m.put("boardFileNo",rs.getString("boardFileNo"));
          m.put("originFilename",rs.getString("originFilename"));
          m.put("saveFilename",rs.getString("saveFilename"));
          m.put("path",rs.getString("path"));
+         list.add(m);
    }
    
    
@@ -47,6 +51,8 @@
       <tr>
          <td>boardTitle</td>
          <td>originFilename</td>
+         <td>수정</td>
+         <td>삭제</td>
       </tr>
       <%
          for(HashMap<String, Object> m : list){
@@ -59,6 +65,8 @@
                <%=(String)m.get("originFilename")%>
             </a>
             </td>
+            <td><a href="<%=request.getContextPath()%>/modifyBoard.jsp?boardNo=<%=m.get("boardNo")%>&boardFileNo=<%=m.get("boardFileNo")%>">수정</a></td>
+            <td><a href="">삭제</a></td>
          </tr>
       <%
          }
