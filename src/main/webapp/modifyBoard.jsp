@@ -36,6 +36,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	table, th, td{
+		border : 1px solid #FF0000;
+	}
+</style>
 </head>
 <body>
 	<h1>board & boardFile 수정</h1>
@@ -44,13 +49,13 @@
 		<input type="hidden" name="boardFileNo" value="<%=map.get("boardFileNo")%>">
 		<table>
 			<tr>
-				<th>boardTitle</th>
+				<th>제목</th>
 				<td>
 					<textarea rows="3" cols="5" name="boardTitle" required="required"><%=map.get("boardTitle")%></textarea>
 				</td>
 			</tr>
 			<tr>
-				<th>boardFile(수정전 파일 : <%=map.get("originFilename")%>)</th>
+				<th>파일(수정전 파일 : <%=map.get("originFilename")%>)</th>
 				<td>
 					<input type="file" name="boardFile">
 				</td>
