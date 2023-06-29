@@ -3,6 +3,11 @@
 <%@ page import="java.util.*" %>
 <%@ page import="vo.*" %>
 <%
+
+	int currentPage = 1;
+	if(request.getParameter("currentPage") != null) {
+		currentPage = Integer.parseInt(request.getParameter("currentPage"));
+	}
 	//db 접속
 	String driver = "org.mariadb.jdbc.Driver";
 	String dburl = "jdbc:mariadb://127.0.0.1:3306/fileupload";
@@ -26,6 +31,16 @@
 		m.put("path",rs.getString("path"));
 		list.add(m);
 	}
+	PreparedStatement totalRowStmt = null;
+	ResultSet totalRowRs = null;
+	String totalRowSql = "SELECT COUNT(*) FROM board_file";
+	totalRowStmt = conn.prepareStatement(totalRowSql);
+	totalRowRs = totalRowStmt.executeQuery();
+	
+	int rowPerPage = 10;
+	int beginRow = (currentPage - 1) * rowPerPage + 1;
+	int endRow = beginRow + rowPerPage - 1;
+	int totalRow = 0;
 %>
 <!DOCTYPE html>
 <html>
